@@ -1,0 +1,16 @@
+---
+# Title: role-zabbix-5-lts
+#
+# Author: bitfinity-nl
+# File: tasks/server/apach2.yml
+#
+# Description:
+#   Playbook for deploying Zabbix 5.0LTS 
+#
+
+- name: "Apache2 enable SSL module"
+  apache2_module:
+    state: present
+    name: ssl
+  notify:
+    - restart_apache2
