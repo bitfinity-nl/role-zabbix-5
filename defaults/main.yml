@@ -1,0 +1,158 @@
+---
+# Title: role-zabbix-5
+#
+# Author: bitfinity-nl
+# File: defaults/main.yml
+#
+# Description:
+#   Playbook for deploying Zabbix 5.0LTS 
+#     server:
+#       - Ubuntu 20.04lts.
+#
+#     Agent:
+#       - Ubuntu 20.04lts.
+#       - Ubuntu 18.04lts.
+#       - Windows
+#
+# Comment:
+#   Override settings here, in your playbook or in your group_vars.   
+#
+
+
+# -- Zabbix server - General settings -- 
+#
+# Variable(s): 
+#   zbx_repository     : 'https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-3+bionic_all.deb'  # Set Url to Zabbix repository 
+#   zbx_timezone       : 'Europe/Amsterdam'                                                                                          # Set Timezone.
+#   zbx_servername     : '{{ ansible_hostname }}'                                                                                    # Set servername of the installation.
+#   zbx_server         : '{{ def_zbx_server }}'                                                                                      # Set IP or hostname of the Zabbix server.
+#   zbx_active_server  : '{{ def_zbx_active_server }}'                                                                               # Set IP or hostname of the Zabbix Active server.
+#   zbx_type           : 'agent'                                                                                                     # Set installation type to agent, server, proxy (default=agent).
+#
+zbx_repository     : 'https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb'
+zbx_timezone       : 'Europe/Amsterdam' 
+zbx_servername     : '{{ ansible_hostname }}'
+zbx_server         : '{{ def_zbx_server }}'
+zbx_active_server  : '{{ def_zbx_active_server }}'
+zbx_type           : 'agent'
+
+
+# -- Zabbix MySQL database settings --
+#
+# Variable(s): 
+#   zbx_mysql_dbname   : 'zabbix'              # Set Zabbix database name.
+#   zbx_mysql_root     : 'root'                # Set Administrative MySQL account.
+#   zbx_mysql_root_pwd : 'RootPasswordHere'    # Set Administrative MySQL account password.
+#   zbx_mysql_zbx_user : 'zabbix'              # Set Zabbix MySQL database username.
+#   zbx_mysql_zbx_pass : 'ChangePasswordHere'  # Set Zabbix MySQL database password. 
+#
+zbx_mysql_dbname   : 'zabbix'
+zbx_mysql_root     : '{{ def_mysql_user }}'
+zbx_mysql_root_pwd : '{{ def_mysql_pass }}'
+zbx_mysql_zbx_user : 'zabbix'
+zbx_mysql_zbx_pass : 'ChangePasswordHere'
+
+
+# -- Zabbix server - zabbix_server.conf.j2 --
+#
+# Variable(s): 
+#   zbx_srv_listenport              : '10051'                     # Set Listen port for trapper.
+#   zbx_srv_sourceip                : ''                          # Set Source IP address for outgoing connections.
+#   zbx_srv_logtype                 : 'file'                      # Specifies where log messages are written to.
+#   zbx_srv_logfile                 : '/tmp/zabbix_server.log'    # Set path for logfile when logtype=file.
+#   zbx_srv_logfilesize             : '1'                         # Set Maximum size of log file in MB.
+#   zbx_srv_debuglevel              : '3'                         # Set debug level.
+#   zbx_srv_pidfile                 : '/tmp/zabbix_server.pid'    # Set name of the pidfile. 
+#   zbx_srv_socketdir               : '/tmp'                      # Set IPC socket directory. 
+#   zbx_srv_dbhost                  : 'localhost'                 # Set database hostname.
+#   zbx_srv_dbname                  : '{{ zbx_mysql_dbname }}'    # Set Database name.
+#   zbx_srv_dbschema                : ''                          # Set Schema name. Used for IBM DB2 and PostgreSQL.
+#   zbx_srv_dbuser                  : '{{ zbx_mysql_zbx_user }}'  # Set Database user.
+#   zbx_srv_dbsocket                : ''                          # Path to MySQL socket.
+#   zbx_srv_dbport                  : ''                          # Database port when not using local socket.
+#   zbx_srv_historystorageurl       : ''                          # History storage HTTP[S] URL.
+#   zbx_srv_historyhtoragetypes     : 'uint,dbl,str,log,text'     # Comma separated list of value types to be sent to the history storage.
+#   zbx_srv_historystoragedateindex : '0'                         # Enable preprocessing of history values in history storage to store values in different indices based on date.  
+#   zbx_srv_exportdir               : ''                          # Directory for real time export of events.
+#   zbx_srv_exportfilesize          : '1G'                        # Maximum size per export file in bytes.
+#   zbx_srv_startpollers            : '5'                         # Number of pre-forked instances of pollers. 
+#   zbx_srv_startipmipollers        : '0'                         # Number of pre-forked instances of IPMI pollers.
+#   zbx_srv_startpreprocessors      : '3'                         # Number of pre-forked instances of preprocessing workers.
+#   zbx_srv_startPollersunreachable : '1'                         # Number of pre-forked instances of pollers for unreachable hosts.
+#   zbx_srv_starttrappers           : '5'                         # Number of pre-forked instances of trappers.
+#   zbx_srv_startpingers            : '1'                         # Number of pre-forked instances of ICMP pingers.
+#   zbx_srv_startdiscoverers        : '1'                         # Number of pre-forked instances of discoverers.
+#   zbx_srv_starthttppollers        : '1'                         # Number of pre-forked instances of HTTP pollers.
+#   zbx_srv_starttimers             : '1'                         # Number of pre-forked instances of timers.
+#   zbx_srv_startescalators         : '1'                         # Number of pre-forked instances of escalators.
+#   zbx_srv_startalerters           : '3'                         # Number of pre-forked instances of alerters.
+#
+zbx_srv_listenport               : '10051' 
+#zbx_srv_sourceip                : ''
+#zbx_srv_logtype                 : 'file'
+#zbx_srv_logfile                 : '/tmp/zabbix_server.log'
+#zbx_srv_logfilesize             : '1'
+#zbx_srv_debuglevel              : '3'
+zbx_srv_pidfile                  : '/tmp/zabbix_server.pid'
+#zbx_srv_socketdir               : '/tmp'
+zbx_srv_DBHost                   : 'localhost'
+zbx_srv_DBName                   : '{{ zbx_mysql_dbname }}'
+#zbx_srv_dbschema                : ''
+zbx_srv_DBUser                   : '{{ zbx_mysql_zbx_user }}'
+zbx_srv_DBPassword               : '{{ zbx_mysql_zbx_pass }}'
+#zbx_srv_dbsocket                : ''
+#zbx_srv_dbport                  : ''
+#zbx_srv_historystorageurl       : ''
+#zbx_srv_historyhtoragetypes     : 'uint,dbl,str,log,text'
+#zbx_srv_historystoragedateindex : '0'
+#zbx_srv_exportdir               : ''
+#zbx_srv_exportfilesize          : '1G'
+#zbx_srv_startpollers            : '5'
+#zbx_srv_startipmipollers        : '0'
+#zbx_srv_startpreprocessors      : '3'
+#zbx_srv_startPollersunreachable : '1'
+#zbx_srv_starttrappers           : '5'
+zbx_srv_startpingers             : '4'
+zbx_srv_startdiscoverers         : '1'
+#zbx_srv_starthttppollers        : '1'
+#zbx_srv_starttimers             : '1'
+#zbx_srv_startescalators         : '1'
+#zbx_srv_startalerters           : '3'
+zbx_srv_CacheSize                : '64M'
+
+
+# -- Zabbix Agent Ubuntu - zabbix_agent.conf.j2 --
+#
+# Variable(s):
+#   zbx_agt_LogFileSize            : '5'                       # Maximum size of log file in MB.
+#   zbx_agt_Server                 : '127.0.0.1'               # Set IP or hostname of Zabbix (proxy) servers.
+#   zbx_agt_ServerActive           : '127.0.0.1'               # Set IP or hostname of Zabbix (proxy) servers. 
+#   zbx_agt_Hostname               : '{{ ansible_hostname }}'  # Set hostname.
+#   zbx_agt_EnableRemoteCommands   : '1'                       # Used for sending remote commands.
+#   zbx_agt_LogRemoteCommands      : '0'                       # Used for loging remote commands.
+#   zbx_agt_HostMetadata           : 'Server'                  # Used for autoregistration. 
+#
+zbx_agt_LogFileSize           : '5'
+zbx_agt_Server                : '{{ zbx_server }}'
+zbx_agt_ServerActive          : '{{ zbx_active_server }}'
+zbx_agt_Hostname              : '{{ ansible_hostname }}'
+zbx_agt_EnableRemoteCommands  : '1'
+zbx_agt_LogRemoteCommands     : '0'
+zbx_agt_HostMetadata          : 'Server'
+
+
+# -- Zabbix Agent Windows - specific settings (Zip version)--
+# 
+# Variable(s):
+#   zbx_pkg_local_repository   : '{{ ansible_env.ALLUSERSPROFILE }}\\ansible\cached\\zabbix-agent' 
+#   zbx_agt_win_src            : 'https://www.zabbix.com/downloads/4.0.14/zabbix_agents-4.0.14-win-amd64-openssl.zip'
+#   zbx_agt_checksum           : '552f5146f12aed4217f9d0408f29e4d6'
+#   zbx_agt_checksum_algorithm : 'md5'
+#
+# Comment:
+#   See Zabbix documentation for more specific arguments.
+#
+zbx_pkg_local_repository   : '{{ ansible_env.ALLUSERSPROFILE }}\\ansible\cached\\zabbix-agent' 
+zbx_agt_win_src            : 'https://www.zabbix.com/downloads/4.0.14/zabbix_agents-4.0.14-win-amd64-openssl.zip'
+zbx_agt_checksum           : '552f5146f12aed4217f9d0408f29e4d6'
+zbx_agt_checksum_algorithm : 'md5'
