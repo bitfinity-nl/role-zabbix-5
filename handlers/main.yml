@@ -1,0 +1,44 @@
+---
+# Title: role-zabbix-5lts
+#
+# Author: bitfinity-nl
+# File: handlers/main.yml
+#
+# Description:
+#   Playbook for deploying Zabbix 5.0LTS 
+#
+
+- name: "import zabbix-dbschema"
+  raw: "zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -u {{ zbx_mysql_root }} -p{{ zbx_mysql_root_pwd }} {{ zbx_mysql_dbname }}"
+
+- name: "reboot_server"
+  reboot:
+
+- name: "enable_restart_zabbix-server"
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+    masked: no
+  with_items:
+    - zabbix-server
+    - zabbix-agent
+
+- name: "restart_zabbix_agent"
+  systemd:
+    name: zabbix-agent
+    state: restarted
+    enabled: yes
+    masked: no
+
+- name: "restart_apache2"
+  systemd:
+    name: apache2
+    state: restarted
+    enabled: yes
+    masked: no
+
+- name: "restart_win_zbx_agent"
+  win_service:
+    name: Zabbix Agent
+    state: restarted
