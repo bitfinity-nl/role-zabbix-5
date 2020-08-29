@@ -97,7 +97,7 @@ SocketDir=/var/run/zabbix
 # Default:
 # DBName=
 
-DBName={{ zbx_mysql_dbname }}
+DBName={{ zbx_mariadb_dbname }}
 
 ### Option: DBSchema
 #	Schema name. Used for IBM DB2 and PostgreSQL.
@@ -113,7 +113,7 @@ DBName={{ zbx_mysql_dbname }}
 # Default:
 # DBUser=
 
-DBUser={{ zbx_mysql_zbx_user }}
+DBUser={{ zbx_mariadb_zbx_user }}
 
 ### Option: DBPassword
 #	Database password.
@@ -122,7 +122,7 @@ DBUser={{ zbx_mysql_zbx_user }}
 # Mandatory: no
 # Default:
 # DBPassword=
-DBPassword={{ zbx_mysql_zbx_pass }}
+DBPassword={{ zbx_mariadb_zbx_pass }}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
