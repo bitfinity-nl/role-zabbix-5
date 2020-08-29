@@ -2,7 +2,7 @@
 # Title: role-zabbix-5-lts
 #
 # Author: bitfinity-nl
-# File: tasks/agent/zbx-agent-ubt-1804.yml
+# File: tasks/agent/zbx-agent-ubt-2004.yml
 #
 # Description:
 #   Playbook for deploying Zabbix 5.0LTS 
