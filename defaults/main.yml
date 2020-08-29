@@ -34,23 +34,23 @@ zbx_timezone       : 'Europe/Amsterdam'
 zbx_servername     : '{{ ansible_hostname }}'
 zbx_server         : '{{ def_zbx_server }}'
 zbx_active_server  : '{{ def_zbx_active_server }}'
-zbx_type           : 'agent'
+zbx_type           : 'server'
 
 
-# -- Zabbix MySQL database settings --
+# -- Zabbix MariaDB database settings --
 #
 # Variable(s): 
-#   zbx_mysql_dbname   : 'zabbix'              # Set Zabbix database name.
-#   zbx_mysql_root     : 'root'                # Set Administrative MySQL account.
-#   zbx_mysql_root_pwd : 'RootPasswordHere'    # Set Administrative MySQL account password.
-#   zbx_mysql_zbx_user : 'zabbix'              # Set Zabbix MySQL database username.
-#   zbx_mysql_zbx_pass : 'ChangePasswordHere'  # Set Zabbix MySQL database password. 
+#   zbx_mariadb_dbname   : 'zabbix'              # Set Zabbix database name.
+#   zbx_mariadb_root     : 'root'                # Set Administrative MySQL account.
+#   zbx_mariadb_root_pwd : 'RootPasswordHere'    # Set Administrative MySQL account password.
+#   zbx_mariadb_zbx_user : 'zabbix'              # Set Zabbix MySQL database username.
+#   zbx_mariadb_zbx_pass : 'ChangePasswordHere'  # Set Zabbix MySQL database password. 
 #
-zbx_mysql_dbname   : 'zabbix'
-zbx_mysql_root     : '{{ def_mysql_user }}'
-zbx_mysql_root_pwd : '{{ def_mysql_pass }}'
-zbx_mysql_zbx_user : 'zabbix'
-zbx_mysql_zbx_pass : 'ChangePasswordHere'
+zbx_mariadb_dbname   : 'zabbix'
+zbx_mariadb_root     : '{{ def_mariadb_user }}'
+zbx_mariadb_root_pwd : '{{ def_mariadb_pass }}'
+zbx_mariadb_zbx_user : '{{ def_mariadb_zbx_user }}'
+zbx_mariadb_zbx_pass : '{{ def_mariadb_zbx_pass }}'
 
 
 # -- Zabbix server - zabbix_server.conf.j2 --
