@@ -34,7 +34,7 @@ zbx_timezone       : 'Europe/Amsterdam'
 zbx_servername     : '{{ ansible_hostname }}'
 zbx_server         : '{{ def_zbx_server }}'
 zbx_active_server  : '{{ def_zbx_active_server }}'
-zbx_type           : 'server'
+zbx_type           : 'agent'
 
 
 # -- Zabbix MariaDB database settings --
