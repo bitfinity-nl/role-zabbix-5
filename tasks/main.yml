@@ -15,12 +15,11 @@
     - ansible_architecture == "x86_64"
     - zbx_type == 'server'
 
-#- name: "Zabbix Agent (Ubuntu)"
-#  import_tasks: agent/zbx-agent-ubt2004.yml
-#  when:
-#    - ansible_distribution_version == "20.04"
-#    - ansible_architecture == "x86_64"
-#    - zbx_type == 'agent'
+- name: "Zabbix Agent (Ubuntu)"
+  import_tasks: agent/zbx-agent-ubt-generic.yml
+  when:
+    - ansible_architecture == "x86_64"
+    - zbx_type == 'agent'
 
 #- name: "Zabbix Agent (Windows 64bit)"
 #  import_tasks: agent/windows/zbx-agent-win-64bit.yml
