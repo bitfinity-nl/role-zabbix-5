@@ -18,6 +18,13 @@
 #   Override settings here, in your playbook or in your group_vars.   
 #
 
+# -- Zabbix - Set installation type -- 
+#
+# Variable(s):
+#   zbx_type                  : 'agent'  # Set installation type to agent, server, proxy (default=agent).
+#
+zbx_type : 'agent'
+
 
 # -- Zabbix server - General settings -- 
 #
@@ -28,9 +35,7 @@
 #   zbx_servername            : '{{ ansible_hostname }}'                                                                                    # Set servername of the installation.
 #   zbx_server                : '{{ def_zbx_server }}'                                                                                      # Set IP or hostname of the Zabbix server.
 #   zbx_active_server         : '{{ def_zbx_active_server }}'                                                                               # Set IP or hostname of the Zabbix Active server.
-#   zbx_type                  : 'agent'                                                                                                     # Set installation type to agent, server, proxy (default=agent).
 #
-zbx_install_zabbix_server : 'yes'
 zbx_repository            : 'https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb'
 zbx_timezone              : 'Europe/Amsterdam' 
 zbx_servername            : '{{ ansible_hostname }}'
