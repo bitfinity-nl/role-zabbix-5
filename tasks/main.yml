@@ -14,18 +14,18 @@
   when:
     - ansible_distribution_version == "20.04"
     - ansible_architecture == "x86_64"
-    - zbx_type == 'server'
+    - zbx_server == 'enabled'
 
-- name: "Zabbix Agent (Ubuntu)"
-  import_tasks: agent/zbx-agent-ubt2004.yml
-  when:
-    - ansible_distribution_version == "20.04"
-    - ansible_architecture == "x86_64"
-    - zbx_type == 'agent'
+#- name: "Zabbix Agent (Ubuntu)"
+#  import_tasks: agent/zbx-agent-ubt2004.yml
+#  when:
+#    - ansible_distribution_version == "20.04"
+#    - ansible_architecture == "x86_64"
+#    - zbx_type == 'agent'
 
-- name: "Zabbix Agent (Windows 64bit)"
-  import_tasks: agent/windows/zbx-agent-win-64bit.yml
-  when:
-    - ansible_os_family == "Windows"
-    - ansible_architecture == "64-bit"
-    - zbx_type == 'agent'
+#- name: "Zabbix Agent (Windows 64bit)"
+#  import_tasks: agent/windows/zbx-agent-win-64bit.yml
+#  when:
+#    - ansible_os_family == "Windows"
+#    - ansible_architecture == "64-bit"
+#    - zbx_type == 'agent'
