@@ -14,7 +14,7 @@
   when:
     - ansible_distribution_version == "20.04"
     - ansible_architecture == "x86_64"
-    - zbx_server == 'enabled'
+    - zbx_install_zabbix_server == 'yes'
 
 #- name: "Zabbix Agent (Ubuntu)"
 #  import_tasks: agent/zbx-agent-ubt2004.yml
