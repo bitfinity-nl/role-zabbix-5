@@ -1,5 +1,5 @@
 ----
-# Title: role-zabbix-5-lts
+# Title: role-zabbix-5
 #
 # Author: bitfinity-nl
 # File: tasks/agent/zbx-agent-ubt-2004.yml
