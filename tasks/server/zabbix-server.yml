@@ -36,11 +36,11 @@
 
 - name: "Create initial database"
   mysql_db:
-    name: "{{ zbx_mysql_dbname }}"
+    name: "{{ zbx_mariadb_dbname }}"
     encoding: utf8
     state: present
-    login_user: "{{ zbx_mysql_root }}"
-    login_password: "{{ zbx_mysql_root_pwd }}"
+    login_user: "{{ zbx_mariadb_root }}"
+    login_password: "{{ zbx_mariadb_root_pwd }}"
   notify:
     - import zabbix-dbschema
     - enable_restart_zabbix-server
@@ -48,12 +48,13 @@
 
 - name: "Create initial database user"
   mysql_user:
-    name: "{{ zbx_mysql_zbx_user }}"
-    password: "{{ zbx_mysql_zbx_pass }}"
-    priv: "{{ zbx_mysql_dbname }}.*:ALL,GRANT"
+    name: "{{ zbx_mariadb_zbx_user }}"
+    password: "{{ zbx_mariadb_zbx_pass }}"
+    priv: "{{ zbx_mariadb_dbname }}.*:ALL,GRANT"
     state: present
-    login_user: "{{ zbx_mysql_root }}"
-    login_password: "{{ zbx_mysql_root_pwd }}"
+    login_user: "{{ zbx_mariadb_root }}"
+    login_password: "{{ zbx_mariadb_root_pwd }}"
+  no_log: True
 
 - name: "Create directory structure"
   file:
@@ -87,7 +88,8 @@
     - { find: 'ServerActive={{ zbx_active_server }}', repl: 'ServerActive=127.0.0.1,{{ zbx_active_server }}' }
   notify:
     - restart_zabbix_agent
-
+  no_log: True
+  
 - name: "Configure UFW firewall"
   ufw:
     rule: allow
