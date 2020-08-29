@@ -22,20 +22,20 @@
 # -- Zabbix server - General settings -- 
 #
 # Variable(s):
-#   zbx_server         : 'enabled'                                                                                                   # Install Zabbix server (default=disabled).
-#   zbx_repository     : 'https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-3+bionic_all.deb'  # Set Url to Zabbix repository 
-#   zbx_timezone       : 'Europe/Amsterdam'                                                                                          # Set Timezone.
-#   zbx_servername     : '{{ ansible_hostname }}'                                                                                    # Set servername of the installation.
-#   zbx_server         : '{{ def_zbx_server }}'                                                                                      # Set IP or hostname of the Zabbix server.
-#   zbx_active_server  : '{{ def_zbx_active_server }}'                                                                               # Set IP or hostname of the Zabbix Active server.
-#   zbx_type           : 'agent'                                                                                                     # Set installation type to agent, server, proxy (default=agent).
+#   zbx_install_zabbix_server : 'yes'                                                                                                       # Install Zabbix server (default=no).
+#   zbx_repository            : 'https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-3+bionic_all.deb'  # Set Url to Zabbix repository 
+#   zbx_timezone              : 'Europe/Amsterdam'                                                                                          # Set Timezone.
+#   zbx_servername            : '{{ ansible_hostname }}'                                                                                    # Set servername of the installation.
+#   zbx_server                : '{{ def_zbx_server }}'                                                                                      # Set IP or hostname of the Zabbix server.
+#   zbx_active_server         : '{{ def_zbx_active_server }}'                                                                               # Set IP or hostname of the Zabbix Active server.
+#   zbx_type                  : 'agent'                                                                                                     # Set installation type to agent, server, proxy (default=agent).
 #
-zbx_server         : 'disabled'
-zbx_repository     : 'https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb'
-zbx_timezone       : 'Europe/Amsterdam' 
-zbx_servername     : '{{ ansible_hostname }}'
-zbx_server         : '{{ def_zbx_server }}'
-zbx_active_server  : '{{ def_zbx_active_server }}'
+zbx_install_zabbix_server : 'yes'
+zbx_repository            : 'https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb'
+zbx_timezone              : 'Europe/Amsterdam' 
+zbx_servername            : '{{ ansible_hostname }}'
+zbx_server                : '{{ def_zbx_server }}'
+zbx_active_server         : '{{ def_zbx_active_server }}'
 
 
 # -- Zabbix MariaDB database settings --
