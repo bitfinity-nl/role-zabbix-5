@@ -9,12 +9,12 @@
 #   Playbook for deploying Zabbix 5.0LTS 
 #
 
-#- name: "Zabbix server (Ubuntu)"
-#  import_tasks: server/zabbix-server.yml
-#  when:
-#    - ansible_distribution_version == "20.04"
-#    - ansible_architecture == "x86_64"
-#    - zbx_server == 'enabled'
+- name: "Zabbix server (Ubuntu)"
+  import_tasks: server/zabbix-server.yml
+  when:
+    - ansible_distribution_version == "20.04"
+    - ansible_architecture == "x86_64"
+    - zbx_server == 'enabled'
 
 #- name: "Zabbix Agent (Ubuntu)"
 #  import_tasks: agent/zbx-agent-ubt2004.yml
