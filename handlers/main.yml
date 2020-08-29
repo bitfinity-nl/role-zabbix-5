@@ -9,7 +9,7 @@
 #
 
 - name: "import zabbix-dbschema"
-  raw: "zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -u {{ zbx_mysql_root }} -p{{ zbx_mysql_root_pwd }} {{ zbx_mysql_dbname }}"
+  raw: "zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -u {{ zbx_mariadb_root }} -p{{ zbx_mariadb_root_pwd }} {{ zbx_mariadb_dbname }}"
 
 - name: "reboot_server"
   reboot:
