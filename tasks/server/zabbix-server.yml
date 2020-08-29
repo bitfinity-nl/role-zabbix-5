@@ -32,7 +32,9 @@
     - snmp-mibs-downloader
     - zabbix-server-mysql
     - zabbix-frontend-php
+    - zabbix-apache-conf
     - zabbix-agent
+
 
 - name: "Create initial database"
   mysql_db:
