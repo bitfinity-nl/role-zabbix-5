@@ -13,6 +13,10 @@
     deb: "{{ zbx_repository }}"
     state: present
 
+- name: "Update & Upgrade"
+  apt:
+    upgrade: dist
+    
 - name: "Install Zabbix-agent"
   apt:
     name: zabbix-agent
