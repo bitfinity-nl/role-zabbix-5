@@ -24,6 +24,16 @@
     - zabbix-server
     - zabbix-agent
 
+- name: "enable_restart_zabbix-proxy"
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+    masked: no
+  with_items:
+    - zabbix-proxy
+    - zabbix-agent
+    
 - name: "restart_zabbix_agent"
   systemd:
     name: zabbix-agent
