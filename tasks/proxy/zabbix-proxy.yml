@@ -1,0 +1,84 @@
+---
+# Title: role-zabbix-5-lts
+#
+# Author: bitfinity-nl
+# File: tasks/server/zabbix-proxy.yml
+#
+# Description:
+#   Playbook for deploying Zabbix 5.0lts proxy.
+#
+
+- name: "Install Zabbix repository"
+  apt:
+    deb: "{{ zbx_repository }}"
+    state: present
+
+- name: "Update & Upgrade"
+  apt:
+    upgrade: dist
+
+- name: "Install Zabbix server, frontend, agent"
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+    - zabbix-proxy-mysql
+    - zabbix-agent
+
+- name: "Create initial database"
+  mysql_db:
+    name: "{{ zbx_mariadb_dbname }}"
+    encoding: utf8
+    collation: utf8_bin
+    state: present
+    login_user: "{{ zbx_mariadb_root }}"
+    login_password: "{{ zbx_mariadb_root_pwd }}"
+  notify:
+    - import zabbix-dbschema
+    - enable_restart_zabbix-server
+    - reboot_server
+
+- name: "Create initial database user"
+  mysql_user:
+    name: "{{ zbx_mariadb_zbx_user }}"
+    password: "{{ zbx_mariadb_zbx_pass }}"
+    priv: "{{ zbx_mariadb_dbname }}.*:ALL,GRANT"
+    state: present
+    login_user: "{{ zbx_mariadb_root }}"
+    login_password: "{{ zbx_mariadb_root_pwd }}"
+  no_log: True
+
+- name: "Transfer templates to {{ ansible_host }}"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    backup: yes
+  with_items:
+    - { src: 'server/zabbix_proxy.conf.j2', dest: '/etc/zabbix/zabbix_proxy.conf', owner: 'root', group: 'root', mode: '0644' }
+    - { src: 'agent/zabbix_agentd.conf.j2', dest: '/etc/zabbix/zabbix_agentd.conf', owner: 'root', group: 'root', mode: '0644' }
+
+- name: "Configure Zabbix Agent with 127.0.0.1 to monitor itself"
+  replace:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: "{{ item.find }}"
+    replace: "{{ item.repl }}"
+  with_items:
+    - { find: 'Server={{ zbx_server }}', repl: 'Server=127.0.0.1,{{ zbx_server }}' }
+    - { find: 'ServerActive={{ zbx_active_server }}', repl: 'ServerActive=127.0.0.1,{{ zbx_active_server }}' }
+  notify:
+    - restart_zabbix_agent
+  no_log: True
+  
+- name: "Configure UFW firewall"
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+  with_items:
+    - { port: '10050', proto: 'tcp', desc: 'Allow traffic from Zabbix server to Zabbix Agent (Passive) on port 10050/tcp' }
+    - { port: '10051', proto: 'tcp', desc: 'Allow traffic from Zabbix agent to Zabbix server (Active) on port 10051/tcp' }
