@@ -37,7 +37,7 @@
     login_password: "{{ zbx_mariadb_root_pwd }}"
   notify:
     - import zabbix-dbschema
-    - enable_restart_zabbix-server
+    - enable_restart_zabbix-proxy
     - reboot_server
 
 - name: "Create initial database user"
