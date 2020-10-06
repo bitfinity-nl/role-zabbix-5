@@ -22,7 +22,7 @@
     - zbx_type == 'agent'
 
 - name: "Zabbix Agent (Windows 64bit)"
-  import_tasks: agent/windows/zbx-agent-win-64bit.yml
+  import_tasks: agent/zbx-agent-win-64bit.yml
   when:
     - ansible_os_family == "Windows"
     - ansible_architecture == "64-bit"
