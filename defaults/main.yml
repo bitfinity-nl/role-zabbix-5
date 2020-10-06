@@ -126,6 +126,22 @@ zbx_srv_startdiscoverers         : '1'
 #zbx_srv_startalerters           : '3'
 zbx_srv_CacheSize                : '64M'
 
+# -- Zabbix Apache2 configuration - 000-zabbix.conf.j2 / apache2-ssl.conf.j2--
+#
+# Variable(s):
+#   zbx_server_name               : ''
+#   zbx_use_ssl                   : ''
+#   zbx_ssl_certificate_file      : ''
+#   zbx_ssl_certificate_keyfile   : ''
+#   zbx_ssl_certificate_chainfile : ''
+#
+zbx_server_name               : ''
+zbx_use_ssl                   : ''
+zbx_ssl_certificate_file      : ''
+zbx_ssl_certificate_keyfile   : ''
+zbx_ssl_certificate_chainfile : ''
+
+
 
 # -- Zabbix Agent Ubuntu - zabbix_agent.conf.j2 --
 #
