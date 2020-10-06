@@ -12,7 +12,7 @@
                 SSLEngine on
                 SSLCertificateFile {{ zbx_ssl_certificate_file }}
                 SSLCertificateKeyFile {{ zbx_ssl_certificate_keyfile }}
-                SSLCertificateChainFile {{ zbx_ssl_chainfile }}
+                SSLCertificateChainFile {{ zbx_ssl_certificate_chainfile }}
 
                 <FilesMatch "\.(cgi|shtml|phtml|php)$">
                                 SSLOptions +StdEnvVars
