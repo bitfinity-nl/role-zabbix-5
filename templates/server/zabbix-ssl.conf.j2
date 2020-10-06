@@ -1,0 +1,32 @@
+<IfModule mod_ssl.c>
+        <VirtualHost _default_:443>
+                ServerAdmin support@bitfinity.nl
+                ServerName bit-zbx-01.bitfinity.nl
+                ServerAlias bit-zbx-01.bitfinity.nl
+
+                DocumentRoot /usr/share/zabbix
+
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+                SSLEngine on
+                SSLCertificateFile {{ zbx_ssl_certificate_file }}
+                SSLCertificateKeyFile {{ zbx_ssl_certificate_keyfile }}
+                SSLCertificateChainFile {{ zbx_ssl_chainfile }}
+
+                <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                                SSLOptions +StdEnvVars
+                </FilesMatch>
+                <Directory /usr/lib/cgi-bin>
+                                SSLOptions +StdEnvVars
+                </Directory>
+
+                <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                                SSLOptions +StdEnvVars
+                </FilesMatch>
+                <Directory /usr/lib/cgi-bin>
+                                SSLOptions +StdEnvVars
+                </Directory>
+
+        </VirtualHost>
+</IfModule>
