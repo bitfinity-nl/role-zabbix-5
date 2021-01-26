@@ -15,12 +15,12 @@
 
 - name: "Download & Install deb package"
   apt:
-    repo: "{{ item }}"
+    repo: deb [arch=amd64] http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
     filename: zabbix.list
     state: present
-  with_items:
-    - deb [arch=amd64] http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
-    - deb-src http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
+#  with_items:
+#    - 
+#    - deb-src http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
     
 - name: "Update & Upgrade"
   apt:
