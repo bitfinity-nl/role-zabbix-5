@@ -8,11 +8,20 @@
 #   Playbook for deploying Zabbix 5.0LTS 
 #
 
+#- name: "Download & Install deb package"
+#  apt:
+#    deb: "{{ zbx_repository }}"
+#    state: present
+
 - name: "Download & Install deb package"
   apt:
-    deb: "{{ zbx_repository }}"
+    repo: "{{ item }}"
+    file: zabbix.list
     state: present
-
+  with_items:
+    - deb [arch=amd64] http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
+    - deb-src http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
+    
 - name: "Update & Upgrade"
   apt:
     upgrade: dist
