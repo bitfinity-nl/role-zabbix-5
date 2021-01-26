@@ -17,13 +17,13 @@
   apt:
     repo: deb [arch=amd64] http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
     state: present
-    filename: zabbix.list
+    filename: zabbix
     
 - name: "Download & Install deb package"
   apt:
     repo: deb-src http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
     state: present
-    filename: zabbix.list
+    filename: zabbix
 
 - name: "Update & Upgrade"
   apt:
