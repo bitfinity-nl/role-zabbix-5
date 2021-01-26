@@ -16,7 +16,7 @@
 - name: "Download & Install deb package"
   apt:
     repo: "{{ item }}"
-    file: zabbix.list
+    filename: zabbix.list
     state: present
   with_items:
     - deb [arch=amd64] http://repo.zabbix.com/zabbix/5.0/ubuntu focal main
